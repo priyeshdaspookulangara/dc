@@ -85,6 +85,14 @@ const PatientDetailScreen = ({ route }) => {
         {patient.first_name} {patient.last_name} ({patient.age}) - MRN: {patient.mrn}
       </Text>
       {/* Add more patient details here */}
+      <Button
+        title="Lab Reports"
+        onPress={() => navigation.navigate('LabReports', { patientId })}
+      />
+      <Button
+        title="Radiology Reports"
+        onPress={() => navigation.navigate('RadiologyReports', { patientId })}
+      />
       <FlatList
         data={notes}
         renderItem={renderNote}
