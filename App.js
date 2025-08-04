@@ -22,6 +22,7 @@ const App = () => {
           <Stack.Screen name="LabReports" component={LabReportsScreen} />
           <Stack.Screen name="RadiologyReports" component={RadiologyReportsScreen} />
           <Stack.Screen name="PatientList" component={PatientListScreen} />
+          <Stack.Screen name="PendingAppointments" component={PendingAppointmentsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>

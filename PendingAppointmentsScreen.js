@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { AuthContext } from './AuthContext';
 
-const DashboardScreen = ({ navigation }) => {
+const PendingAppointmentsScreen = ({ navigation }) => {
   const { token, user } = useContext(AuthContext);
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
-    const fetchAppointments = async () => {
+    const fetchPendingAppointments = async () => {
       try {
         const response = await fetch(
-          `http://benessanaturals.com/hms/api/appointments/read_by_provider.php?provider_id=${user.id}`,
+          `http://benessanaturals.com/hms/api/appointments/read_pending_by_provider.php?provider_id=${user.id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -25,31 +25,21 @@ const DashboardScreen = ({ navigation }) => {
     };
 
     if (user) {
-      fetchAppointments();
+      fetchPendingAppointments();
     }
   }, [user, token]);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('PatientDetail', { patientId: item.patient_id })
-      }
-    >
-      <View>
-        <Text>{item.appointment_time}</Text>
-        <Text>{item.patient_name}</Text>
-        <Text>{item.reason_for_visit}</Text>
-      </View>
-    </TouchableOpacity>
+    <View>
+      <Text>{item.appointment_time}</Text>
+      <Text>{item.patient_name}</Text>
+      <Text>{item.reason_for_visit}</Text>
+    </View>
   );
 
   return (
     <View>
-      <Button
-        title="Pending Appointments"
-        onPress={() => navigation.navigate('PendingAppointments')}
-      />
-      <Text>Today's Appointments</Text>
+      <Text>Pending Appointments</Text>
       <FlatList
         data={appointments}
         renderItem={renderItem}
@@ -59,4 +49,4 @@ const DashboardScreen = ({ navigation }) => {
   );
 };
 
-export default DashboardScreen;
+export default PendingAppointmentsScreen;
